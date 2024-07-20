@@ -5,10 +5,12 @@ import BlogPostDetails from './BlogPostDetails';
 
 const Mainroutes = () => {
   return (
+    <React.Fragment>
       <Routes>
         <Route path="/" element={<BlogPostList />} />
         <Route path="/post/:id" element={<BlogPostDetails />} />
       </Routes>
+    </React.Fragment>
   );
 }
 
