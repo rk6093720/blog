@@ -12,13 +12,22 @@ const BlogPostDetails = () => {
          const res = await fetch(
            `https://newsapi.org/v2/everything?q=apple&from=2024-07-18&to=2024-07-18&sortBy=popularity&apiKey=${apiKey}`,
            {
-             mode: "cors", // Request mode
+             method: "GET",
+             headers: {
+               Authorization: `Bearer ${apiKey}`,
+             },
+             mode: "cors",
            }
          );
+
+         if (!res.ok) {
+           throw new Error(`HTTP error! Status: ${res.status}`);
+         }
+
          const result = await res.json();
          setData(result.articles);
        } catch (e) {
-         console.log(e.message);
+         console.error("Error fetching data:", e.message);
        }
      };
     useEffect(()=>{
