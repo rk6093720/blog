@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from 'react';
-import axios from "axios";
 import { Box } from '@mui/material';
 import BlogPostItem from './BlogPostItem';
 import Pagination from '../Functionality/Pagination';
@@ -13,23 +12,22 @@ const BlogPostList = () => {
     const end = page * itemperpage;
     const start = end - itemperpage;
     const paginationdata = data.slice(start,end);
-    const getBlog=async()=>{
-      try{
-              const res = await fetch(
-                `https://newsapi.org/v2/everything?q=apple&from=2024-07-18&to=2024-07-18&sortBy=popularity&apiKey=${apiKey}`,
-                {
-                  headers: {
-                    Origin: "https://rk6093720.github.io",
-                  },
-                }
-              );
-              const result = await res.json();
-              console.log(result)
-              setData(result.articles)
-      }catch(e){
-          console.log(e.message)
-      }
+
+  const getBlog = async () => {
+    try {
+      const res = await fetch(
+        `https://newsapi.org/v2/everything?q=apple&from=2024-07-18&to=2024-07-18&sortBy=popularity&apiKey=${apiKey}`,
+        {
+          mode: "cors", // Request mode
+        }
+      );
+      const result = await res.json();
+      setData(result.articles);
+    } catch (e) {
+      console.log(e.message);
     }
+  };
+
     useEffect(()=>{
         getBlog()
     },[])
