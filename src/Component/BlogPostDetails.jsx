@@ -9,17 +9,20 @@ const BlogPostDetails = () => {
     const [detail,setDetails]=useState({})
     const apiKey = "b668ac647f43439f94112c7c2ac3a832";
      const getBlog = async () => {
-       return await axios
-         .get(
-           `https://newsapi.org/v2/everything?q=apple&from=2024-07-18&to=2024-07-18&sortBy=popularity&apiKey=${apiKey}`
-         )
-         .then((r) => {
-           console.log(r.data.articles);
-           setData(r.data.articles);
-         })
-         .catch((e) => {
-           console.log(e);
-         });
+      try {
+        const res = await fetch(
+          `https://newsapi.org/v2/everything?q=apple&from=2024-07-18&to=2024-07-18&sortBy=popularity&apiKey=${apiKey}`,
+          {
+            headers: {
+              Origin: "https://rk6093720.github.io",
+            },
+          }
+        );
+        const result = await res.json();
+        setData(result.articles);
+      } catch (e) {
+        alert(e.message);
+      }
      };
     useEffect(()=>{
         getBlog();

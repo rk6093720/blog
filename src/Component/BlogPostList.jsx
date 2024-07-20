@@ -14,14 +14,21 @@ const BlogPostList = () => {
     const start = end - itemperpage;
     const paginationdata = data.slice(start,end);
     const getBlog=async()=>{
-      return await axios.get(`https://newsapi.org/v2/everything?q=apple&from=2024-07-18&to=2024-07-18&sortBy=popularity&apiKey=${apiKey}`)
-      .then((r)=>{
-        console.log(r.data.articles);
-        setData(r.data.articles);
-      })
-      .catch((e)=>{
-        console.log(e)
-      })
+      try{
+              const res = await fetch(
+                `https://newsapi.org/v2/everything?q=apple&from=2024-07-18&to=2024-07-18&sortBy=popularity&apiKey=${apiKey}`,
+                {
+                  headers: {
+                    Origin: "https://rk6093720.github.io",
+                  },
+                }
+              );
+              const result = await res.json();
+              console.log(result)
+              setData(result.articles)
+      }catch(e){
+          console.log(e.message)
+      }
     }
     useEffect(()=>{
         getBlog()
